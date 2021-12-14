@@ -1,0 +1,59 @@
+<div class="container">
+<%= image_tag @post.user.image.to_s, class:"circle-xs"%><%= @post.user.name %>
+<div class="card">
+  <h5 class="card-header"><%= @post.title %></h3></h5>
+  <div class="card-body">
+    <h5 class="card-title"><%= @post.content %></h5>
+    <p class="card-text"></p>
+    <%= @post.created_at.strftime('%Y年%m月%d日 %H:%M:%S') %>
+    <% if user_signed_in? %>
+    <% if @post.user == current_user || current_user.id == 1 %>
+<%= link_to "投稿を削除", post_destroy_path(@post.id), method: "delete", data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+<% end %>
+<% end %>
+  </div>
+</div>
+
+<p>
+<div class="card">
+  <div class="card-header">
+  コメント(<%= @res.count %>)
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>
+ <% @res.reverse.each do |res| %>
+ <%= image_tag res.user.image.to_s, class:"circle-xs"%>
+ <%= link_to res.user.name, detail_path(res.user.id) %>
+ <%= res.created_at.strftime('%Y年%m月%d日 %H:%M:%S') %>
+ <% if user_signed_in? %>
+  <% if res.user == current_user || current_user.id == 1 %>
+  <%= link_to "削除", re_destroy_path(res.id),method: :delete, data: { confirm: '本当に削除しますか？' } %>
+ <% end %>
+  <% end %>
+ <p><%= res.content %></p>
+ <% end %>
+      
+      </p>
+      <footer class="blockquote-footer">　</footer>
+    </blockquote>
+  </div>
+</div>
+</p>
+
+<% if user_signed_in? %>
+<%= form_with model:@create_res, local: true do |f| %>
+
+  <div class="form-group">
+    <label>コメントを投稿</label>
+    <%= f.text_area :content, class: "form-control" %>
+  </div>
+  
+  <%= f.submit "投稿", class: "btn btn-success"%><br>
+<% end %>
+<% else %>
+<%= link_to 'コメントするにはログインしてください', user_twitter_omniauth_authorize_path ,method: :post %>
+<% end %>
+</div>
+
+</div>

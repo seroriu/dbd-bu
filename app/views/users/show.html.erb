@@ -1,0 +1,177 @@
+<div class="container">
+
+<%= image_tag @user.image.to_s, class:"circle"%>　<%= @user.name %>
+<%= link_to image_tag("Twitter social icons - circle - blue.png",class:"twitter-link"), "https://twitter.com/#{@user.username}" %>
+<p><%= @user.profile%></p>
+<br>
+<table class="table thead-dark" style="border: solid 2px #d3d3d3;color : #fff;">
+  <colgroup span="2" style="background-color: #333;"></colgroup>
+
+  <tr>
+    <td>
+    プラットフォーム
+    </td>
+    <td>
+    <ul>
+    <% if @user.steam %>
+    <li>Steam</li>
+    <% end %>
+    <% if @user.ps %>
+    <li>PlayStation</li>
+    <% end %>
+    <% if @user.switch %>
+    <li>Switch</li>
+    <% end %>
+    <% if @user.xbox %>
+    <li>Xbox</li>
+    <% end %>
+    </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>サバイバーランク</td>
+    <td>
+    <% if @user.survivor_lank == 0 %>
+    灰
+    <% elsif@user.survivor_lank == 1 %>
+    銅
+    <% elsif@user.survivor_lank == 2 %>
+    銀
+    <% elsif@user.survivor_lank == 3 %>
+    金
+    <% elsif@user.survivor_lank == 4 %>
+    彩
+    <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>キラーランク</td>
+    <td>
+    <% if @user.killer_lank == 0 %>
+    灰
+    <% elsif@user.killer_lank == 1 %>
+    銅
+    <% elsif@user.killer_lank == 2 %>
+    銀
+    <% elsif@user.killer_lank == 3 %>
+    金
+    <% elsif@user.killer_lank == 4 %>
+    彩
+    <% end %>
+    
+    </td>
+
+  </tr>
+
+  <tr>
+    <td>可能なVC</td>
+    <td>
+    <ul>
+    <% if @user.discord %>
+    <li>Discord</li>
+    <% end %>
+    <% if @user.ptvc %>
+    <li>PTVC</li>
+    <% end %>
+    <% if @user.skype %>
+    <li>Skype</li>
+    <% end %>
+    <% if @user.novc %>
+    <li>通話なし</li>
+    <% end %>
+    </ul>
+    </td>
+  </tr>
+    <tr>
+    <td>活動時間帯</td>
+    <td><%= @user.activity %></td>
+  </tr>
+  <tr>
+    <td>プレイスタイル</td>
+    <td>エンジョイ</td>
+  </tr>
+</table>
+<p>
+
+
+<% if user_signed_in? %>
+
+いいね
+<% if @faves %>
+<%= link_to image_tag("faved.png",class:"platform-logo"), fave_destroy_path(@user), method: :delete %>
+<% else %>
+<%= link_to image_tag("fave.png",class:"platform-logo"), fave_post_path(@user), method: :post %>
+<% end %>
+<% else %>
+いいねするにはサインインしてください
+<% end %>
+</p>
+
+
+<div class="card">
+  <div class="card-header">
+  いいね(<%= @user_faved.count %>)
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>
+       <% @user_faved.reverse.each do |fave| %>
+      <%= image_tag fave.user.image.to_s, class:"circle-xs"%>
+       <%= link_to fave.user.name, detail_path(fave.user.id) %>
+       <% end %>
+      
+      </p>
+      <footer class="blockquote-footer">　</footer>
+    </blockquote>
+  </div>
+</div>
+<br>
+
+<div class="card">
+  <div class="card-header">
+  コメント(<%= @comments.count %>)
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>
+ <% @comments.reverse.each do |comment| %>
+ <%= image_tag comment.user.image.to_s, class:"circle-xs"%>
+ <%= link_to comment.user.name, detail_path(comment.user.id) %>
+ <%= comment.created_at.strftime('%Y年%m月%d日 %H:%M:%S') %>
+ <% if user_signed_in? %>
+  <% if comment.user == current_user || current_user.id == 1 %>
+  <%= link_to "削除", comment_destroy_path(comment.id),method: :delete, data: { confirm: '本当に削除しますか？' } %>
+ <% end %>
+  <% end %>
+ <p><%= comment.comment_content %></p>
+ <% end %>
+      
+      </p>
+      <footer class="blockquote-footer">　</footer>
+    </blockquote>
+  </div>
+</div>
+
+<% if user_signed_in? %>
+
+<%= form_with model:@comment, local: true do |f| %>
+
+  <div class="form-group">
+    <label>コメントを投稿</label>
+    <%= f.text_area :comment_content, class: "form-control" %>
+  </div>
+
+
+<%= f.submit "投稿", class: "btn btn-success"%><br>
+<% end %>
+<% else %>
+<%= link_to 'コメントするにはログインしてください', user_twitter_omniauth_authorize_path ,method: :post %>
+<% end %>
+</div>
+<% if user_signed_in? %>
+<% if current_user.id == 1 %>
+<%= link_to 'ユーザー削除', user_delete_path(@user), method: :delete,class: "btn btn-danger",data: { confirm: '本当に削除しますか？' } %></li>
+<% end %>
+<% end %>

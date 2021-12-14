@@ -1,0 +1,106 @@
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+    <H5>プレイヤーを検索</H5>
+      <%= form_with method: "get", local: true do |f| %>
+          <div class="col">
+            キーワード：<br />
+            <%= f.text_field :profile ,value: @params["profile"] %>
+          </div>
+      プラットフォーム：
+        <div class="form-row">
+          <div class="field">
+            <% if @params["steam"] == "0"  %>
+              <%= f.check_box :steam %> Steam
+            <% else  %>
+              <%= f.check_box :steam,{ checked: true } %> Steam
+            <% end %>
+            <% if @params["ps"] == "0"  %>
+              <%= f.check_box :ps %> PlayStation
+            <% else  %>
+              <%= f.check_box :ps,{ checked: true } %> PlayStation
+            <% end %>
+            <% if @params["switch"] == "0"  %>
+              <%= f.check_box :switch %> Switch
+            <% else  %>
+              <%= f.check_box :switch,{ checked: true } %> Switch
+            <% end %>
+            <% if @params["xbox"] == "0"  %>
+              <%= f.check_box :xbox %> Xbox
+            <% else  %>
+              <%= f.check_box :xbox,{ checked: true } %> Xbox
+            <% end %>
+          </div>
+        </div>
+        VC：
+        <div class="form-row">
+          <div class="field">
+            <% if @params["discord"] == "0"  %>
+              <%= f.check_box :discord %> Discord
+            <% else  %>
+              <%= f.check_box :discord,{ checked: true } %> Discord
+            <% end %>
+            <% if @params["ptvc"] == "0"  %>
+              <%= f.check_box :ptvc %> PTVC
+            <% else  %>
+              <%= f.check_box :ptvc,{ checked: true } %> PTVC
+            <% end %>
+            <% if @params["skype"] == "0"  %>
+              <%= f.check_box :skype %> Skype
+            <% else  %>
+              <%= f.check_box :skype,{ checked: true } %> Skype
+            <% end %>
+            <% if @params["novc"] == "0"  %>
+              <%= f.check_box :novc %> 通話なし
+            <% else  %>
+              <%= f.check_box :novc,{ checked: true } %> 通話なし
+            <% end %>
+          </div>
+        </div>
+          <div class="col">
+            <%= f.submit "検索", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+  <div class="grid">
+    <% @users.reverse.each do |user| %>
+      <div class="item">
+          <header class="user-info">
+            <div class="item-platform">
+            <% if user.steam %>
+            <img src="<%= asset_path "steam.png" %>" class="platform-logo">
+            <% end %>
+            <% if user.ps %>
+            <img src="<%= asset_path "ps.png" %>" class="platform-logo">
+            <% end %>
+            <% if user.switch %>
+            <img src="<%= asset_path "switch.png" %>" class="platform-logo">
+            <% end %>
+            <% if user.xbox %>
+            <img src="<%= asset_path "xbox.png" %>" class="platform-logo">
+            <% end %>
+            </div>
+            <p class="item-avatar"><%= image_tag user.image.to_s, class:"circle-small"%></p>
+            <p class="item-username"><%= user.name %></p>
+          </header>
+        <div class="item-content">
+          <p class="item-profile">
+            <%= user.profile %>
+          </p>
+        </div>
+        <div class="item-detail">
+          <%= link_to "詳細", detail_path(user), class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+<div class="paginate">
+<%= will_paginate @users, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+</div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+<h1>投稿</h1>
+<% if user_signed_in? %>
+<%= link_to "+新規", new_post_path, class: "btn btn-success" %>
+<% else %>
+<%= link_to '投稿するにはログインしてください', user_twitter_omniauth_authorize_path ,method: :post %>
+<% end %>
+
+<table class="table table-striped">
+  <tr>
+    <th>投稿者</th>
+    <th>タイトル</th>
+    <th>投稿日</th>
+  </tr>
+  <% @posts.reverse.each do |post| %>
+  <tr>
+    <td><%= image_tag post.user.image.to_s, class:"circle-xs"%>
+    <%= link_to post.user.name, detail_path(post.user.id) %></td>
+    <td><%= link_to "#{post.title}(#{post.re.count})", post_detail_path(post.id) %></td>
+    <td><%= post.created_at.strftime('%m/%d %H:%M') %></td>
+  <% end %>
+</table>
+</div>

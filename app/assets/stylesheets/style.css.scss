@@ -1,0 +1,139 @@
+.pagination>.active>a {     
+  background: #333;     /*背景の色を変える*/
+}
+
+.btn-primary {
+    background: rgb(39, 147, 235) ;
+}
+
+body{
+    font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
+    line-height: 1.7;
+    color: #fff;
+    background: #757575;
+}
+
+a {
+color:rgb(160, 193, 209);
+text-decoration:underline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+.logo {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background:  image-url("mainlogo.png") center center no-repeat;
+	background-size: contain;
+	width: 100%;
+	min-height: 100px;
+	padding-top: 40.5%;
+}
+.circle {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+}
+.circle-small {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+}
+.circle-xs {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+}
+.platform-logo {
+      height: 30px;
+}
+.grid {
+    display: grid;
+    gap: 26px;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    margin-top: 6%;
+    margin-bottom: 50px;
+}
+
+
+.item {
+    color: #fff;
+    background: #757575;
+    width: 280px;
+    height: 250px;
+    margin: 20px;
+    padding: 10px 10px 10px 10px;
+    border-width: 1px;
+    border-style: solid;  
+    border-color: #fff;
+}
+
+.item header {
+    /* display: flex; */
+}
+
+.user-info {
+    position: relative;
+    padding-top: 4px;
+    margin-bottom: 40px;
+}
+
+.item-avatar {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    padding-top: 10px;
+}
+
+.item-platform {
+    margin-left: 100px;
+    text-align: right;
+}
+
+.item-content {
+    /* flex-flow: column; */
+}
+.item-username {
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.item-profile {
+    margin:5px;
+    height: 50px;
+    overflow: clip;
+}
+
+.item-detail {
+    margin:5px;
+    padding: 5px;
+    height: 10px;
+}
+
+.paginate {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+}
+
+.twitter-link {
+    width: 24px;
+}
+
+input[type="text"] {
+    width: 300px;
+    height: 40px;
+}
+
+input[type="password"] {
+    width: 300px;
+}
+
+.card {
+    color: #fff;
+    background: #757575;
+}
+

@@ -1,0 +1,89 @@
+<div class="container">
+
+
+<img src="/assets/yX4LrnlI_400x400.png" class="circle"><%= @user.name %>
+<p><%= @user.profile%></p>
+<br>
+
+<table class="table" style="border: solid 2px #d3d3d3">
+  <colgroup span="1" style="background-color: whitesmoke;"></colgroup>
+
+  <tr>
+    <td>
+    プラットフォーム
+    </td>
+    <td>
+    <% if @user.platform == 0 %>
+    Steam
+    <% elsif@user.platform == 1 %>
+    PS
+    <% elsif@user.platform == 2 %>
+    Switch
+    <% elsif@user.platform == 3 %>
+    Xbox
+    <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>サバイバーランク</td>
+    <td>
+    <% if @user.survivor_lank == 0 %>
+    白帯
+    <% elsif@user.survivor_lank == 1 %>
+    黄帯
+    <% elsif@user.survivor_lank == 2 %>
+    緑帯
+    <% elsif@user.survivor_lank == 3 %>
+    紫帯
+    <% elsif@user.survivor_lank == 4 %>
+    赤帯
+    <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>キラーランク</td>
+    <td>
+    <% if @user.killer_lank == 0 %>
+    白帯
+    <% elsif@user.killer_lank == 1 %>
+    黄帯
+    <% elsif@user.killer_lank == 2 %>
+    緑帯
+    <% elsif@user.killer_lank == 3 %>
+    紫帯
+    <% elsif@user.killer_lank == 4 %>
+    赤帯
+    <% end %>
+    
+    </td>
+
+  </tr>
+
+  <tr>
+    <td>可能なVC</td>
+    <td>
+    <ul>
+    <% if @user.discord %>
+    <li>Discord</li>
+    <% end %>
+    <% if @user.discord %>
+    <li>PTVC</li>
+    <% end %>
+    <% if @user.discord %>
+    <li>Skype</li>
+    <% end %>
+    </ul>
+    </td>
+  </tr>
+    <tr>
+    <td>活動時間帯</td>
+    <td><% @user.activity %></td>
+  </tr>
+  <tr>
+    <td>プレイスタイル</td>
+    <td>エンジョイ</td>
+  </tr>
+</table>
+</div>
